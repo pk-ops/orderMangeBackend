@@ -129,7 +129,7 @@ const router = express.Router();
 
         try{
             const prod = await getProductBySlug(slug)
-            res.send({status:'ok',data:prod});
+            res.status(200).send(prod);
             console.log(prod)
         }catch(err){
             res.status(401).send({ message:"Something went wrong"});
