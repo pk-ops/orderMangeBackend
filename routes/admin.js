@@ -1,4 +1,5 @@
-import express from "express";
+import { ObjectID } from "bson";
+import express, { json } from "express";
 
 import {
     AddCategory,
@@ -6,7 +7,10 @@ import {
 
     getCate,
     
+    getCateBySlug,
+    
     getProductById,
+  
     getProductBySlug,
     updateProductById,
     ViewCategory,
@@ -18,11 +22,12 @@ const router = express.Router();
 
 
  router.post("/category",async function (req,res){
-        const {name,slug,descript,status,meta_title,meta_keyword,meta_description}=req.body;
+        const {id,name,slug,descript,status,meta_title,meta_keyword,meta_description}=req.body;
         
         try{
     
         const result =await AddCategory({
+            id,
             name,
             slug,
             descript,
@@ -124,17 +129,30 @@ const router = express.Router();
 
 
     router.get("/getProd/:slug",async function(req,res){
-        const {slug}=req.params;
-        console.log(slug);
-
-        try{
-            const prod = await getProductBySlug(slug)
-            res.status(200).send(prod);
-            console.log(prod)
-        }catch(err){
-            res.status(401).send({ message:"Something went wrong"});
-        }
-       
+        // const {slug}=req.params;
+        // console.log(slug);
+        // const category=await getCateBySlug(slug)
+        // // res.send(category)
+        // // console.log(category)
+        // if(category){
+            
+        //     const prod = await getProductBySlug(slug)
+        //     console.log(prod)
+        //     console.log(prod.id)
+        //     if(prod.id===category.id){
+        //        res.status(200).send({prod});
+             
+        //     }else{
+        //         res.status(400).send({msg:'product Not found'})
+        //         console.log("product Not found")
+        //     }     
+        // }else{
+        //     res.status(400).send({ message:"Category No Found"});
+        // }
+        const{slug}=req.params;
+        const prod = await getProductBySlug(slug)
+        res.send(prod)
+      
       
         
     })

@@ -39,8 +39,13 @@ export async function getProductById(id){
   return await client.db("test").collection("Product").findOne({id});
 }
 
+
+
 export async function getProductBySlug(slug){
   return await client.db("test").collection("Product").findOne({slug});
+}
+export async function getCateBySlug(slug){
+  return await client.db("test").collection("Category").findOne({slug});
 }
 
   
